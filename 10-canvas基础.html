@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>canvas基础</title>
+    <style>
+        #can{
+            background-color: pink;
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- canvas面板；ie以上的浏览器才支持，canvas宽高必须在标签中设置，不可以在css样式表中设置 -->
+    <canvas id="can" width="800" height="600"></canvas>
+    <script>
+        window.onload = function(){
+            //1.获取元素
+            var oC = document.getElementById('can');
+            //设置面板的2D效果
+            var oGC= oC.getContext('2d');
+            //绘制方块,实心，默认颜色是黑色
+            //X,Y,Width,Height
+            oGC.fillRect(50,50,100,100)
+
+            //绘制空心方块
+            oGC.strokeRect(150,150,200,200)
+        }
+    </script>
+</body>
+</html>

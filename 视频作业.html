@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频作业</title>
+    <style>
+        .oCon{
+            width: 1200px;
+            margin: 0 auto;
+        }
+        .oCon video {
+            width: 80%;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div class="oCon">
+        <video src=http://218.14.251.9:49155/om.tc.qq.com/AmeO9k_L6vcm_n7ES8u7tUDS0MzforUAltK_1tO9GRrU/uwMROfz2r57CIaQXGdGnC2ddPkb5Wzumid6GMsG9ELr7HeBy/svp_50001/szg_72344998_50001_c931c7a74adc482685fb5120531ab391.f622.mp4?sdtfrom=v1104&guid=8464d998cd3213a739c8e3e9f032b30d&vkey=9BE3B61CFDB11E452674D65EF34EBDE9BF105BE8A6C4061C0B79A24B307E7B49D2F291DBE2F28EDF2E938256A942B0FB7A8D510563D4E345688CC31D0C6757FE42343845B460FFB29B0F1C21891CDF03267A09AEF7FEEECCC1DE2801B8C2DFBA28C96AFA13948327B22A67B6C62C5C21A0590E4A826F062E9D557084841EBD0F></video>
+    </div>
+    <button>播放/暂停</button>
+    <button>静音</button>
+    <input type="range" id="oRange" value="10" min="0" max="10">
+</body>
+<script>
+    window.onload = function(){
+        var oV = document.getElementsByTagName('video')[0];
+        var oBtn = document.getElementsByTagName('button');
+        var oRange = document.getElementById('oRange');
+        var num = 0;
+        oBtn[0].onclick = function(){
+            num++
+            if(num ==1){
+                oV.play();
+            }else{
+                oV.pause();
+                num =0
+            }
+        }
+        oBtn[1].onclick = function(){
+            oV.muted = !oV.muted;
+        }
+        oRange.onchange = function(){
+            oV.volume = parseInt(this.value) /100
+
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>涂鸦</title>
+    <style>
+        #can {
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- canvas面板；ie以上的浏览器才支持，canvas宽高必须在标签中设置，不可以在css样式表中设置 -->
+    <canvas id="can" width="800" height="600">浏览器不支持该标记</canvas>
+    <input type="color" name="" id="color">
+    <input type="range" name="" id="size" value="1" placeholder="请输入线条大小"><span id="oPan">像素</span>
+    <select name="" id="linetype">
+        <option value="实线">实线</option>
+        <option value="虚线">虚线</option>
+    </select>
+    <button id="eraser">橡皮擦</button>
+
+    <script>
+        window.onload = function () {
+            //1.获取元素
+            var oC = document.getElementById('can');
+            //2.设置面板的2D效果
+            var oGC = oC.getContext('2d');
+            var oColor = document.getElementById('color');
+            var mysize = document.getElementById('size');
+            var linetype = document.getElementById('linetype');
+            var oPan = document.getElementById('oPan');
+
+            var eraser = document.getElementById('eraser');
+            var mycolor = '#000';
+            var oSize = '1';
+            //需要使用onmousedown onmousemove onmouup等事件
+            oColor.onchange = function(){
+                mycolor = this.value;
+                oGC.strokeStyle = mycolor;
+            }
+            //修改粗细
+            mysize.onchange = function(){
+                oSize = this.value;
+                oPan.innerHTML = this.value
+
+                oGC.lineWidth = oSize;
+            }
+            oPan.innerHTML = mysize.value
+            eraser.onclick = function(){
+                mycolor = this.value;
+                oGC.strokeStyle = 'pink';
+            }
+            //修改线形
+            linetype.onchange = function(){
+                if(linetype.value=='虚线'){
+                    //设置为虚线
+                    oGC.setLineDash([5,5]);
+                }else{
+                    // 设置为实线
+                    oGC.setLineDash([1,0]);
+                }
+            }
+            //3.开始画图，绑定鼠标按下事件
+            oC.onmousedown = function (ev) {
+
+                //4.获取按下时得光标位置
+                console.log(ev);
+                var x = ev.clientX - oC.offsetLeft;
+                var y = ev.clientY - oC.offsetTop;
+
+                //开始画线
+                oGC.beginPath();
+                //开始目标
+                oGC.moveTo(x, y)
+                //绑定鼠标移动事件
+                document.onmousemove = function (ev) {
+                    var x1 = ev.clientX - oC.offsetLeft;
+                    var y1 = ev.clientY - oC.offsetTop;
+                    //画下一点坐标
+                    oGC.lineTo(x1,y1);
+                    //画
+                    oGC.stroke();
+                }
+                //绑定鼠标抬起事件
+                document.onmouseup = function(ev){
+                    //对onmousedown事件解除绑定
+                    document.onmousemove = null;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
